@@ -38,3 +38,8 @@ dependencies {
 tasks.withType<Test> {
 	useJUnitPlatform()
 }
+
+tasks.withType<org.springframework.boot.gradle.tasks.bundling.BootJar> {
+	// Ensures the resulting JAR is an executable JAR
+	launchScript()
+}
