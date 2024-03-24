@@ -1,14 +1,16 @@
 package com.superfintech.superpayment.entity;
 
+import com.superfintech.superpayment.entity.status.EnumPaymentStatus;
 import jakarta.persistence.*;
+import lombok.Builder;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import org.hibernate.annotations.GenericGenerator;
 
 import java.math.BigDecimal;
-import java.util.List;
 
 @Data
+@Builder
 @Entity
 @EqualsAndHashCode
 public class Payment {
@@ -20,15 +22,15 @@ public class Payment {
 
     private String companyId;
 
-    @ElementCollection(targetClass = Voucher.class, fetch = FetchType.EAGER)
-    private List<Voucher> vouchers;
+    private String code;
 
-    private BigDecimal originalAmount;
+    private String voucher;
 
-    private BigDecimal paidAmount;
+    private BigDecimal orderAmount;
 
-    private boolean paid;
+    private EnumPaymentStatus status;
 
-    private boolean deleted;
+    @Version
+    private int version;
 
 }
