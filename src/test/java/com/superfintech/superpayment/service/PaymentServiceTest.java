@@ -2,7 +2,6 @@ package com.superfintech.superpayment.service;
 
 import com.superfintech.superpayment.entity.Payment;
 import com.superfintech.superpayment.repository.PaymentRepository;
-import com.superfintech.superpayment.service.interfaces.TransactionVerifier;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -24,7 +23,7 @@ public class PaymentServiceTest {
     private PaymentRepository paymentRepository;
 
     @Mock
-    private TransactionVerifier transactionVerifier;
+    private VoucherTransactionVerifier transactionVerifier;
 
     @InjectMocks
     private PaymentService paymentService;

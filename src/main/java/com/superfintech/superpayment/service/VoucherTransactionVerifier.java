@@ -1,11 +1,9 @@
 package com.superfintech.superpayment.service;
 
-import com.superfintech.superpayment.service.interfaces.TransactionVerifier;
+import org.springframework.stereotype.Service;
 
-import java.util.Random;
-
-public class VoucherTransactionVerifier implements TransactionVerifier {
-    @Override
+@Service
+public class VoucherTransactionVerifier {
     public boolean verifyTransaction(String companyId, String code, String voucher) {
         if(voucher == null || voucher.isEmpty() || code == null || code.isEmpty() || companyId == null || companyId.isEmpty()) {
             return false;
