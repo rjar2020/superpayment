@@ -4,7 +4,7 @@
 
 ### Trade-offs
 
-- AuthZ / AuthN
+- AuthZ / AuthN (Springboot Security)
 - A Voucher can have max & min amount & expiration date
 - Voucher code in prod should be two (2) for security, personalization and cognitive load reason around the UUID format.
 - There are no updates in DB

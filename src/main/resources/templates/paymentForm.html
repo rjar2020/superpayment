@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Formulario de Pago</title>
+    <style>
+        html, body {
+            height: 100%;
+            margin: 0;
+        }
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #f0f0f0;
+        }
+        form {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 300px;
+        }
+        input[type="text"], input[type="hidden"] {
+            display: block;
+            margin-bottom: 20px;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            width: calc(100% - 22px);
+        }
+        input[type="submit"] {
+            background-color: #007bff;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 100%;
+        }
+        input[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+        /* Styles for success and error symbols */
+        .success, .error {
+            font-size: 50px;
+            text-align: center;
+        }
+        .success { color: #28a745; }
+        .error { color: #dc3545; }
+    </style>
+</head>
+<body>
+<form id="paymentForm">
+    <input type="hidden" id="orderAmount" name="orderAmount" th:value="${orderAmount}">
+    <input type="hidden" id="companyId" name="companyId" th:value="${companyId}">
+    <input type="text" id="voucher" name="voucher" placeholder="Voucher" required>
+    <input type="text" id="code" name="code" placeholder="Code" required>
+    <input type="submit" value="Pay">
+</form>
+
+<script th:inline = 'javascript'>
+    document.getElementById('paymentForm').addEventListener('submit', function(event) {
+        event.preventDefault();
+
+        var voucher = document.getElementById('voucher').value;
+        var code = document.getElementById('code').value;
+        var companyId = document.getElementById('companyId').value;
+        var orderAmount = document.getElementById('orderAmount').value;
+        var serverUrl = [[${serverUrl}]]
+
+        var data = {
+            voucher: voucher,
+            code: code,
+            orderAmount: orderAmount,
+            companyId: companyId
+        };
+
+        fetch(serverUrl, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(data),
+        })
+        .then(response => {
+            if (response.ok) { // Checks if the status code is 200-299
+                document.getElementById('paymentForm').innerHTML = '<div class="success">&#10004;</div>';
+            } else {
+                document.getElementById('paymentForm').innerHTML = '<div class="error">&#10006;</div>';
+            }
+        })
+        .catch((error) => {
+            document.getElementById('paymentForm').innerHTML = '<div class="error">&#10006;</div>';
+            console.error('Error:', error);
+        });
+    });
+</script>
+</body>
+</html>
