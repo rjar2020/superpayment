@@ -2,13 +2,13 @@ package com.superfintech.superpayment.entity;
 
 import com.superfintech.superpayment.entity.status.EnumPaymentStatus;
 import jakarta.persistence.*;
-import lombok.Builder;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
+import lombok.*;
 import org.hibernate.annotations.GenericGenerator;
 
 import java.math.BigDecimal;
 
+@NoArgsConstructor
+@AllArgsConstructor
 @Data
 @Builder
 @Entity

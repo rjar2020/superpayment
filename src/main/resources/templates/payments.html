@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Payment List</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+</head>
+<body>
+<div class="container mt-5">
+    <h2>Payments</h2>
+    <table class="table">
+        <thead class="thead-dark">
+        <tr>
+            <th>ID</th>
+            <th>Company ID</th>
+            <th>Code</th>
+            <th>Voucher</th>
+            <th>Order Amount</th>
+            <th>Status</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="payment : ${payments}">
+            <td th:text="${payment.id}"></td>
+            <td th:text="${payment.companyId}"></td>
+            <td th:text="${payment.code}"></td>
+            <td th:text="${payment.voucher}"></td>
+            <td th:text="${payment.orderAmount}"></td>
+            <td th:text="${payment.status}"></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>

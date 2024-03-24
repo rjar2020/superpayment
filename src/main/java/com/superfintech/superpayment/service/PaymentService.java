@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 @Service
 public class PaymentService {
@@ -43,5 +44,9 @@ public class PaymentService {
         paymentRepository.save(payment);
 
         return payment.getStatus() == EnumPaymentStatus.ACCEPTED;
+    }
+
+    public List<Payment> getAllPayments() {
+        return (List<Payment>) paymentRepository.findAll();
     }
 }
