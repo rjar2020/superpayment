@@ -70,7 +70,7 @@ public class PaymentServiceTest {
 
         // Verification
         assertFalse(result);
-        verify(paymentRepository, times(2)).save(any(Payment.class));
+        verify(paymentRepository, times(1)).save(any(Payment.class));
     }
 
     @Test
