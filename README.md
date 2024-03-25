@@ -10,7 +10,6 @@
 - Version in DB, for concurrency-> For transaction deduplication, we can use optimistic locking.
 - Service validations
 - Certificate for HTTPS
-- Interfaces
 - Spock
 - Refactor
 - Backoffice pagination

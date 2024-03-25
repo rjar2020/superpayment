@@ -3,8 +3,10 @@ package com.superfintech.superpayment.service;
 import com.superfintech.superpayment.entity.Payment;
 import com.superfintech.superpayment.entity.status.EnumPaymentStatus;
 import com.superfintech.superpayment.repository.PaymentRepository;
+import com.superfintech.superpayment.service.interfaces.TransactionVerifier;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
@@ -17,7 +19,8 @@ public class PaymentService {
     PaymentRepository paymentRepository;
 
     @Autowired
-    VoucherTransactionVerifier transactionVerifier;
+    @Qualifier("voucherTransactionVerifier")
+    TransactionVerifier transactionVerifier;
 
     @Transactional
     public boolean processPayment(String companyId,
