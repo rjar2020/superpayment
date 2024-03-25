@@ -13,6 +13,10 @@ import java.math.BigDecimal;
 @Builder
 @Entity
 @EqualsAndHashCode
+@Table(uniqueConstraints = {
+        @UniqueConstraint(columnNames = "voucher"),
+        @UniqueConstraint(columnNames = {"voucher", "code"})
+})
 public class Payment {
 
     @Id
