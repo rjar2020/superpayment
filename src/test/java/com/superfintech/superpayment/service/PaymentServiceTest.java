@@ -94,8 +94,8 @@ public class PaymentServiceTest {
     @Test
     public void testGetAllPayments() {
         // Mocking
-        Payment payment1 = mock(Payment.class);
-        Payment payment2 = mock(Payment.class);
+        Payment payment1 = new Payment();
+        Payment payment2 = new Payment();
         when(paymentRepository.findAll()).thenReturn(List.of(payment1, payment2));
 
         // Execution

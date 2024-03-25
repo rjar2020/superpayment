@@ -13,3 +13,4 @@
 - Spock
 - Refactor
 - Backoffice pagination
+- Refactor PaymentService tests, improve interaction with the Repository
