@@ -7,6 +7,7 @@ import com.superfintech.superpayment.service.interfaces.TransactionVerifier;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
@@ -22,12 +23,11 @@ public class PaymentService {
     @Qualifier("voucherTransactionVerifier")
     TransactionVerifier transactionVerifier;
 
-    @Transactional
-    public boolean processPayment(String companyId,
-                               String code,
-                               String voucher,
-                               BigDecimal orderAmount) {
 
+    public boolean processPayment(String companyId,
+                                  String code,
+                                  String voucher,
+                                  BigDecimal orderAmount) {
 
         Payment payment = Payment.builder()
                 .companyId(companyId)
@@ -36,17 +36,24 @@ public class PaymentService {
                 .orderAmount(orderAmount)
                 .status(EnumPaymentStatus.PENDING)
                 .build();
-        paymentRepository.save(payment);
 
-        if (transactionVerifier.verifyTransaction(companyId, code, voucher)) {
-            payment.setStatus(EnumPaymentStatus.ACCEPTED);
-        } else {
-            payment.setStatus(EnumPaymentStatus.REJECTED);
-        }
+        if (!savePayment(payment)) return false;
 
-        paymentRepository.save(payment);
+        payment.setStatus(transactionVerifier.verifyTransaction(companyId, code, voucher) ?
+                EnumPaymentStatus.ACCEPTED : EnumPaymentStatus.REJECTED);
+
+        if (!savePayment(payment)) return false;
 
         return payment.getStatus() == EnumPaymentStatus.ACCEPTED;
+    }
+
+    private boolean savePayment(Payment payment) {
+        try {
+            paymentRepository.save(payment);
+        } catch (DataIntegrityViolationException e) {
+            return false;
+        }
+        return true;
     }
 
     public List<Payment> getAllPayments() {
