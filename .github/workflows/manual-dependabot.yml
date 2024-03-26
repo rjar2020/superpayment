@@ -21,17 +21,18 @@ jobs:
           git checkout -b $UNIQUE_BRANCH_NAME
           echo "UNIQUE_BRANCH=$UNIQUE_BRANCH_NAME" >> $GITHUB_ENV
 
-      - name: Update timestamp in dependabot.yml
+      - name: Verify branch creation
+        run: git branch
+
+      - name: Add timestamp to dependabot.yml and verify the change
         run: |
           TIMESTAMP=$(date -u)
-          TIMESTAMP_LINE="# Triggered update: $TIMESTAMP"
-          DEPENDABOT_FILE=".github/dependabot.yml"
-          # Check if the timestamp line exists and replace it, or append it if it doesn't
-          if grep -q "^# Triggered update:" "$DEPENDABOT_FILE"; then
-            sed -i "s|^# Triggered update:.*|$TIMESTAMP_LINE|" "$DEPENDABOT_FILE"
-          else
-            echo -e "\n$TIMESTAMP_LINE" >> "$DEPENDABOT_FILE"
-          fi
+          echo "Before appending timestamp:"
+          cat .github/dependabot.yml
+          echo "Adding timestamp to the dependabot.yml"
+          echo -e "# Triggered update: $TIMESTAMP\n$(cat .github/dependabot.yml)" > .github/dependabot.yml
+          echo "After appending timestamp:"
+          cat .github/dependabot.yml
 
       - name: Commit changes
         run: |
@@ -39,6 +40,7 @@ jobs:
           git config user.email 'rjar2020@gmail.com'
           git add .github/dependabot.yml
           git commit -m "Trigger Dependabot on demand [skip ci]" || echo "No changes to commit"
+          git status
 
       - name: Push to new unique branch
         run: |
