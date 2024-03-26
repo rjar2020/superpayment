@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
+import org.springframework.security.test.context.support.WithMockUser;
+import org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors;
 import org.springframework.test.web.servlet.MockMvc;
 
 import java.math.BigDecimal;
@@ -31,6 +33,7 @@ public class PaymentControllerTest {
     private ObjectMapper objectMapper;
 
     @Test
+    @WithMockUser
     public void processPaymentWhenAccepted() throws Exception {
         ProcessPaymentRequest request = new ProcessPaymentRequest();
         request.setCompanyId("testCompany");
@@ -43,12 +46,14 @@ public class PaymentControllerTest {
 
         mockMvc.perform(post("/payment/process")
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content(objectMapper.writeValueAsString(request)))
+                        .content(objectMapper.writeValueAsString(request))
+                        .with(SecurityMockMvcRequestPostProcessors.csrf()))
                 .andExpect(status().isOk())
                 .andExpect(content().string("Payment accepted"));
     }
 
     @Test
+    @WithMockUser
     public void processPaymentWhenRejected() throws Exception {
         ProcessPaymentRequest request = new ProcessPaymentRequest();
         request.setCompanyId("testCompany");
@@ -61,7 +66,8 @@ public class PaymentControllerTest {
 
         mockMvc.perform(post("/payment/process")
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content(objectMapper.writeValueAsString(request)))
+                        .content(objectMapper.writeValueAsString(request))
+                        .with(SecurityMockMvcRequestPostProcessors.csrf()))
                 .andExpect(status().isUnprocessableEntity())
                 .andExpect(content().string("Payment rejected"));
     }
