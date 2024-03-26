@@ -17,6 +17,12 @@ configurations {
 	}
 }
 
+configurations.all {
+	resolutionStrategy {
+		force("org.apache.commons:commons-compress:1.26.1")
+	}
+}
+
 repositories {
 	mavenCentral()
 }
