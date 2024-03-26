@@ -21,22 +21,27 @@ jobs:
       - name: Verify branch creation
         run: git branch
 
-      - name: Add timestamp to dependabot.yml
+      - name: Add timestamp to dependabot.yml and verify the change
         run: |
           TIMESTAMP=$(date -u)
+          echo "Before appending timestamp:"
+          cat .github/dependabot.yml
           echo "Adding timestamp to the dependabot.yml"
           echo -e "# Triggered update: $TIMESTAMP\n$(cat .github/dependabot.yml)" > .github/dependabot.yml
+          echo "After appending timestamp:"
+          cat .github/dependabot.yml
 
       - name: Commit changes
         run: |
           git config user.name 'rjar2020'
           git config user.email 'rjar2020@gmail.com'
           git add .github/dependabot.yml
-          git commit -m "Trigger Dependabot on demand [skip ci]" || exit 0
+          git commit -m "Trigger Dependabot on demand [skip ci]" || echo "No changes to commit"
+          git status
 
       - name: Push to new unique branch
         run: |
-          git push origin $UNIQUE_BRANCH
+          git push origin ${{ env.UNIQUE_BRANCH }}
 
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v3
