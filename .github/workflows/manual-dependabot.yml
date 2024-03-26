@@ -1,0 +1,25 @@
+name: Manual Dependabot Trigger
+
+on:
+  workflow_dispatch:
+
+jobs:
+  trigger-dependabot:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout the repo
+        uses: actions/checkout@v2
+
+      - name: Add timestamp to dependabot.yml
+        run: |
+          # Add a comment with the current timestamp to the dependabot.yml
+          TIMESTAMP=$(date -u)
+          sed -i "1s/^/# Triggered update: $TIMESTAMP\n/" .github/dependabot.yml
+
+      - name: Commit and push if there are changes
+        run: |
+          git config user.name 'rjar2020'
+          git config user.email 'rjar2020@gamil.com'
+          git add .github/dependabot.yml
+          git commit -m "Trigger Dependabot on demand [skip ci]" || exit 0 # Commit will fail if there are no changes, hence the exit 0
+          git push
