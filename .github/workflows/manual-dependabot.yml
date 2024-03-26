@@ -25,7 +25,7 @@ jobs:
         run: |
           TIMESTAMP=$(date -u)
           echo "Adding timestamp to the dependabot.yml"
-          sed -i "1s/^/# Triggered update: $TIMESTAMP\n/" .github/dependabot.yml
+          echo -e "# Triggered update: $TIMESTAMP\n$(cat .github/dependabot.yml)" > .github/dependabot.yml
 
       - name: Commit changes
         run: |
