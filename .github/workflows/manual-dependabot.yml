@@ -13,9 +13,9 @@ jobs:
           ref: main
 
       - name: Create a new unique branch
+        id: create-branch
         run: |
-          UNIQUE_BRANCH="trigger-dependabot-$(date +%s)"  # Create a unique branch name using a timestamp
-          git checkout -b "$UNIQUE_BRANCH"
+          echo "UNIQUE_BRANCH=trigger-dependabot-$(date +%s)" >> $GITHUB_ENV  # Create a unique branch name and assign it to an environment variable
 
       - name: Add timestamp to dependabot.yml
         run: |
@@ -32,12 +32,13 @@ jobs:
 
       - name: Push to new unique branch
         run: |
-          git push origin "$UNIQUE_BRANCH"
+          git push origin ${{ env.UNIQUE_BRANCH }}
 
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v3
         with:
-          branch: ${{ steps.create-branch.outputs.branch }}
+          token: ${{ secrets.GITHUB_TOKEN }}
+          branch: ${{ env.UNIQUE_BRANCH }}
           base: main
           title: 'Trigger Dependabot on demand'
           body: 'This is an automated pull request to update the dependency files.'
