@@ -10,16 +10,30 @@ jobs:
       - name: Checkout the repo
         uses: actions/checkout@v2
 
+      - name: Create a new branch
+        run: |
+          git checkout -b trigger-dependabot-branch
+
       - name: Add timestamp to dependabot.yml
         run: |
-          # Add a comment with the current timestamp to the dependabot.yml
           TIMESTAMP=$(date -u)
+          echo "Adding timestamp to the dependabot.yml"
           sed -i "1s/^/# Triggered update: $TIMESTAMP\n/" .github/dependabot.yml
 
-      - name: Commit and push if there are changes
+      - name: Commit changes
         run: |
           git config user.name 'rjar2020'
-          git config user.email 'rjar2020@gamil.com'
+          git config user.email 'rjar2020@gmail.com'
           git add .github/dependabot.yml
-          git commit -m "Trigger Dependabot on demand [skip ci]" || exit 0 # Commit will fail if there are no changes, hence the exit 0
-          git push
+          git commit -m "Trigger Dependabot on demand [skip ci]" || exit 0
+
+      - name: Push to new branch
+        run: |
+          git push origin trigger-dependabot-branch
+
+      - name: Create Pull Request
+        uses: peter-evans/create-pull-request@v3
+        with:
+          branch: trigger-dependabot-branch
+          title: 'Trigger Dependabot on demand'
+          body: 'This is an automated pull request to update the dependency files.'
