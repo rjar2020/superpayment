@@ -12,10 +12,14 @@ jobs:
         with:
           ref: main
 
-      - name: Create a new unique branch
-        id: create-branch
+      - name: Create a new unique branch and checkout
         run: |
-          echo "UNIQUE_BRANCH=trigger-dependabot-$(date +%s)" >> $GITHUB_ENV  # Create a unique branch name and assign it to an environment variable
+          UNIQUE_BRANCH_NAME="trigger-dependabot-$(date +%s)"
+          git checkout -b $UNIQUE_BRANCH_NAME
+          echo "UNIQUE_BRANCH=$UNIQUE_BRANCH_NAME" >> $GITHUB_ENV
+
+      - name: Verify branch creation
+        run: git branch
 
       - name: Add timestamp to dependabot.yml
         run: |
@@ -32,7 +36,7 @@ jobs:
 
       - name: Push to new unique branch
         run: |
-          git push origin ${{ env.UNIQUE_BRANCH }}
+          git push origin $UNIQUE_BRANCH
 
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v3
