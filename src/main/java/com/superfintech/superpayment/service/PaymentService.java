@@ -4,14 +4,14 @@ import com.superfintech.superpayment.entity.Payment;
 import com.superfintech.superpayment.entity.status.EnumPaymentStatus;
 import com.superfintech.superpayment.repository.PaymentRepository;
 import com.superfintech.superpayment.service.interfaces.TransactionVerifier;
-import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
-import java.util.List;
 
 @Service
 public class PaymentService {
@@ -56,7 +56,11 @@ public class PaymentService {
         return true;
     }
 
-    public List<Payment> getAllPayments() {
-        return (List<Payment>) paymentRepository.findAll();
+    public Page<Payment> getAllPayments(int pageNumber, int pageSize) {
+        // Ensure non-negative page numbers and a minimum page size of 1
+        int safePageNumber = Math.max(pageNumber, 0);
+        int safePageSize = Math.max(pageSize, 1);
+
+        return paymentRepository.findAll(PageRequest.of(safePageNumber, safePageSize));
     }
 }
