@@ -4,6 +4,8 @@
 
 ### Trade-offs, To-Do and Fun Facts
 
+* Pending 
+  1. Widget AuthZ / AuthN.
 * Refactor, endless ->
   1. Refactor PaymentService tests, improve interaction with the Repository. 
   2. Spock for testing.
