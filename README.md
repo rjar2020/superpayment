@@ -14,11 +14,12 @@
   7. In Payment service, limiting the max page size.
   8. In payment.html, extract the CSS and in genara creating an architecture for styles and scripts.
 * Infrastructure ->
-  1. Explore rate liming for springboot.
-  2. AuthZ / AuthN (Springboot Security) -> csrf-token handling and go beyond basic auth.
-  3. Swagger for documenting the API.
-  4. Certificate for HTTPS, it's a must, for enhancing security.
-  5. Heroku.
+  1. Observability (metrics, logs, tracing)
+  2. Explore rate liming for SpringBoot.
+  3. AuthZ / AuthN (SpringBoot Security) -> csrf-token handling and go beyond basic auth.
+  4. Swagger for documenting the API.
+  5. Certificate for HTTPS, it's a must, for enhancing security.
+  6. Heroku.
 * Backoffice pagination ->
   1. Implementing and InHouse pagination model.
   2. Allowing customers to set the page size.
