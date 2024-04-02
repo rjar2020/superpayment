@@ -4,7 +4,6 @@ import com.superfintech.superpayment.entity.status.EnumPaymentStatus;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.GenericGenerator;
-import org.springframework.data.annotation.CreatedDate;
 
 import java.math.BigDecimal;
 

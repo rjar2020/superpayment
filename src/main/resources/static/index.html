@@ -2,10 +2,111 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>MyIndex</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checkout</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f7f6;
+            padding-top: 50px;
+        }
+        .order-summary {
+            background: #ffffff;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 350px; /* Adjust width of the order summary */
+        }
+        .order-item {
+            padding: 10px 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #ececec;
+        }
+        .order-item:last-child {
+            border-bottom: none;
+        }
+        .price {
+            color: #333;
+            font-weight: bold;
+        }
+        .total {
+            font-size: 1.5rem;
+            font-weight: bold;
+            line-height: 1.5rem;
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+            padding-top: 10px;
+            border-top: 2px solid #ececec;
+        }
+        .iframe-container {
+            height: 364px; /* Adjust as needed */
+            overflow: hidden;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            background: #ffffff;
+            padding: 20px;
+        }
+        iframe {
+            height: 100%;
+            width: 100%;
+            border: none;
+        }
+        .container {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+        .container > div {
+            flex: 1;
+            min-width: 350px;
+        }
+    </style>
 </head>
 <body>
-<H1>Frictionless widget</H1>
-<iframe src="http://superpayment-env.eba-cyp6mzqy.us-east-1.elasticbeanstalk.com/payment/paymentForm?companyId=1235&orderAmount=2" style="border:none; overflow:hidden;" ></iframe>
+<div class="container">
+    <!-- Order Summary -->
+    <div class="order-summary">
+        <h3>Order Summary</h3>
+        <div class="order-item">
+            <span>Nike Free Run 3.0 Women</span>
+            <span class="price">$99.95</span>
+        </div>
+        <!-- Additional items -->
+        <div class="order-item">
+            <span>Fjällräven Backpack</span>
+            <span class="price">$235.95</span>
+        </div>
+        <div class="order-item">
+            <span>Monobento Lunchbox</span>
+            <span class="price">$25.95</span>
+        </div>
+        <div class="order-item">
+            <span>Apple Watch Series 6</span>
+            <span class="price">$399.00</span>
+        </div>
+        <div class="order-item">
+            <span>Beats by Dre Headphones</span>
+            <span class="price">$199.95</span>
+        </div>
+        <div class="total">
+            <span>TOTAL</span>
+            <span>$960.80</span>
+        </div>
+    </div>
+    <!-- Payment iFrame -->
+    <div class="iframe-container">
+        <iframe src="http://superpayment-env.eba-cyp6mzqy.us-east-1.elasticbeanstalk.com/payment/paymentForm?companyId=1235&orderAmount=2"></iframe>
+    </div>
+</div>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>
