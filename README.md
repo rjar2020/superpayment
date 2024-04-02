@@ -15,6 +15,7 @@ Public Documentation in Miro -> [SuperPayment](https://miro.com/app/board/uXjVKZ
   6. Soft deletion, with a maintenance job.
   7. In Payment service, limiting the max page size.
   8. In payment.html, extract the CSS and in genara creating an architecture for styles and scripts.
+  9. Flyway for DB migrations.
 * Infrastructure ->
   1. Observability (metrics, logs, tracing)
   2. Explore rate liming for SpringBoot.
@@ -30,3 +31,4 @@ Public Documentation in Miro -> [SuperPayment](https://miro.com/app/board/uXjVKZ
   1. A Voucher can have max & min amount & expiration date.
   2. Voucher code and ID in prod should be two (2) different things for security, personalization and cognitive load reason around the UUID format.
   3. Version in DB, for concurrency-> For transaction deduplication, we can use optimistic locking.
+  4. Include the company_id in every entity (denormalization), for multi-tenancy evolution.

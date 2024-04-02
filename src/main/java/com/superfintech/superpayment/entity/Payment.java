@@ -35,4 +35,6 @@ public class Payment {
     @Version
     private int version;
 
+    private boolean deleted;
+
 }
