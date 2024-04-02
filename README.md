@@ -6,9 +6,6 @@ Public Documentation in Miro -> [SuperPayment](https://miro.com/app/board/uXjVKZ
 
 ### Trade-offs, To-Do and Fun Facts
 
-* To-Do 
-  1. Widget AuthZ / AuthN.
-  2. Presentation
 * Refactor, endless ->
   1. Refactor PaymentService tests, improve interaction with the Repository. 
   2. Spock for testing.
