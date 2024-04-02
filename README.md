@@ -4,7 +4,7 @@
 
 Public Documentation in Miro -> [SuperPayment](https://miro.com/app/board/uXjVKZyL77I=/?share_link_id=201406842693)
 
-### Trade-offs, To-Do and Fun Facts
+### Trade-offs & Fun Facts
 
 * Refactor, endless ->
   1. Refactor PaymentService tests, improve interaction with the Repository. 
