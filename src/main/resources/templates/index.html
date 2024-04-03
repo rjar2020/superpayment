@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -102,7 +102,7 @@
     </div>
     <!-- Payment iFrame -->
     <div class="iframe-container">
-        <iframe src="http://superpayment-env.eba-cyp6mzqy.us-east-1.elasticbeanstalk.com/payment/paymentForm?companyId=1235&orderAmount=2"></iframe>
+        <iframe th:src="${serverUrl} + '/payment/paymentForm?companyId=1235&amp;orderAmount=2'"></iframe>
     </div>
 </div>
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
