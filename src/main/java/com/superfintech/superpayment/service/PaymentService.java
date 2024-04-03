@@ -57,7 +57,6 @@ public class PaymentService {
     }
 
     public Page<Payment> getAllPayments(int pageNumber, int pageSize) {
-        // Ensure non-negative page numbers and a minimum page size of 1
         int safePageNumber = Math.max(pageNumber, 0);
         int safePageSize = Math.max(pageSize, 1);
 
