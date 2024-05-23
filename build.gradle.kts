@@ -19,7 +19,7 @@ configurations {
 
 configurations.all {
 	resolutionStrategy {
-		force("org.apache.commons:commons-compress:1.26.1")
+		force("org.apache.commons:commons-compress:1.26.2")
 		force("org.xmlunit:xmlunit-core:2.10.0")
 	}
 }
